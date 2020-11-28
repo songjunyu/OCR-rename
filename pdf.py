@@ -24,7 +24,9 @@ class BatchRename:
                 成绩表 = imgpath
             elif "学位证" in item:
                 学位证 = imgpath
-            parent_path = os.path.abspath(os.path.join(dirpath_, ".."))
+            parent_path = os.path.abspath(os.path.join(dirpath_, "..",'1'))
+            if not os.path.exists(parent_path):
+                os.makedirs(parent_path)
         pdfread=PDF()
         pdfread.PDFread(学籍卡,成绩表,学位证,parent_path)
 
@@ -34,6 +36,7 @@ class BatchRename:
 if __name__ == '__main__':
     root = tk.Tk()
     root.withdraw()
-    dirpath = askdirectory()
+    dirpath = askdirectory(title=u'选择源文件夹')
+    # tarpath= askdirectory(title=u'选择目标文件夹')
     demo = BatchRename()
     demo.rename(dirpath)
