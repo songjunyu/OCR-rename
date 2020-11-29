@@ -1,32 +1,43 @@
 # 调用PDFread接口进行pdf合并
-
-import os,shutil
-
+# 源文件命名需分别包含学籍卡，成绩表，学位证字符串
 import tkinter as tk
 from tkinter.filedialog import askdirectory
 from PDFread import *
-
-class BatchRename:
-
-
+import os
+import sys
+# 遍历文件，将文件拆分，按照学号合并
+class BatchSM:
     def __init__(self):
-        pass
-    def rename(self, dirpath_):  # 表示需要命名处理的文件夹
+        学籍卡 = ''
+        成绩表 = ''
+        学位证 = ''
+    def rem(self, dirpath_):  # 表示需要重新合并的文件夹
         filelist = os.listdir(dirpath_)  # 获取文件列表
         for item in filelist:
-            imgpath = os.path.join(os.path.abspath(dirpath_), item)
-            if os.path.isdir(imgpath):
-                self.rename(imgpath)
+            pdfpath = os.path.join(os.path.abspath(dirpath_), item) # 文件路径
+            if os.path.isdir(pdfpath):
+                self.rem(pdfpath)
                 continue
             if "学籍卡" in item:
-                学籍卡 = imgpath
+                学籍卡 = pdfpath
             elif "成绩表" in item:
-                成绩表 = imgpath
+                成绩表 = pdfpath
             elif "学位证" in item:
-                学位证 = imgpath
-            parent_path = os.path.abspath(os.path.join(dirpath_, "..",'1'))
-            if not os.path.exists(parent_path):
-                os.makedirs(parent_path)
+                学位证 = pdfpath
+        if (学籍卡 == ''):
+            print("没有学籍卡或命名错误")
+            sys.exit()
+        if (成绩表 == ''):
+            print("没有成绩表或命名错误")
+            sys.exit()
+        if (学位证 == ''):
+            print("没有学位证或命名错误")
+            sys.exit()
+
+
+        parent_path = os.path.abspath(dirpath_+'-输出')
+        if not os.path.exists(parent_path):
+            os.makedirs(parent_path)
         pdfread=PDF()
         pdfread.PDFread(学籍卡,成绩表,学位证,parent_path)
 
@@ -38,5 +49,5 @@ if __name__ == '__main__':
     root.withdraw()
     dirpath = askdirectory(title=u'选择源文件夹')
     # tarpath= askdirectory(title=u'选择目标文件夹')
-    demo = BatchRename()
-    demo.rename(dirpath)
+    demo = BatchSM()
+    demo.rem(dirpath)

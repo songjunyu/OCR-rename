@@ -16,17 +16,16 @@ class Application(tk.Frame):
         self.dirpath1 = filepath
         self.demo = BatchRename().rename(str(self.dirpath))
         tk.Button(self,text = '运行',bg = 'yellow',width = 20,height = 1,command = self.demo).pack(side = 'top')
-        global filepath = ''
+
     # 打开文件并显示路径
     def _getFile(self):
         default_dir = r"文件夹路径"
         self.filePath = tk.filedialog.askdirectory(title=u'选择文件夹', initialdir=(os.path.expanduser(default_dir)))
-        global filepath = self.filePath
         tag = tk.Entry(self,width = 60)
         tag.pack(side = 'top')
         tag.delete(0, "end")
         tag.insert(0, self.filePath)
-
+        return self.filePath
 class BatchRename:
 
 
