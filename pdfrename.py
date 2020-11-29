@@ -1,5 +1,5 @@
 '''
-   # 将指定文件夹下文件名存储到Excel中
+   # 将pdf文件拼接上其问价夹名
 '''
 import os
 import xlwt
@@ -12,17 +12,13 @@ class BatchRename:
     def __init__(self):
         pass
     def rename(self, dirpath_):  # 表示需要命名处理的文件夹
-        parent_path = os.path.abspath(os.path.join(dirpath_, ".."))
-        f = xlwt.Workbook(encoding='utf-8', style_compression=0)  # 新建一个Excel
-        sheet = f.add_sheet('sheet1')  # 新建一个sheet
-        i=1
         for root,dirs,files in os.walk(dirpath_):
             for file in files:
-                print("'"+file.split('.')[0])
-                sheet.write(i,8,file.split('.')[0])
-                i = i+1
-        f.save(parent_path+'\\filename.xls')
-
+                srcname = os.path.join(root,file)
+                # print(srcname)
+                newname = root+'/'+root.split("/")[-1]+'-'+file
+                print(file)
+                os.rename(srcname,newname)
 
 
 
