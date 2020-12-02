@@ -1,5 +1,6 @@
 # 调用PDFread接口进行pdf合并
 # 源文件命名需分别包含学籍卡，成绩表，学位证字符串
+# 最终要生成镜像文件夹
 import tkinter as tk
 from tkinter.filedialog import askdirectory
 from PDFread import *
