@@ -35,7 +35,8 @@ class BatchSM:
             sys.exit()
 
 
-        parent_path = os.path.abspath(dirpath_+'-输出')
+        # parent_path = os.path.abspath(os.path.join(dirpath_,"A-2020-JX14附件"))
+        parent_path = os.path.abspath(os.path.join(pdfpath,"..","A-2020-JX14附件"))
         if not os.path.exists(parent_path):
             os.makedirs(parent_path)
         pdfread=PDF()
