@@ -1,4 +1,4 @@
-'''给三出一'''
+"""给三出一"""
 import pdfplumber
 from PyPDF2 import PdfFileReader, PdfFileWriter
 import re
@@ -10,7 +10,8 @@ from tqdm import tqdm
 class PDF:
     def __init__(self):
         pass
-    def PDFread(self,roll,score,degree,parent_path):
+
+    def PDFread(self, roll, score, degree, parent_path):
         self.学籍卡 = roll
         self.成绩表 = score
         self.学位证 = degree
@@ -31,7 +32,7 @@ class PDF:
         with pdfplumber.open(self.学籍卡) as pdf:
             page_count = len(pdf.pages)
             # print('学籍卡文件包含%d页PDF' % page_count)
-            pbar = tqdm(desc='学籍卡扫描',total= page_count,ascii=' =')
+            pbar = tqdm(desc='学籍卡扫描', total=page_count, ascii=' =')
             n = -1
             for page in pdf.pages:
                 n += 1
@@ -102,8 +103,7 @@ class PDF:
             个人学位证 = 学位证字典[student_number]
             pdf_writer.addPage(个人学位证)
 
-
-            outputFilename = parent_path+'\\' + student_number + ".pdf"
+            outputFilename = parent_path + '\\' + student_number + ".pdf"
             with open(outputFilename, "wb") as out:
 
                 pdf_writer.write(out)
