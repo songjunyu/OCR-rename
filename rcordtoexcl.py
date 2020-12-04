@@ -10,7 +10,7 @@ import xlwt  # 写Excel
 import xlrd  # 读Excel
 import tkinter as tk
 from tkinter.filedialog import askdirectory  # 获取文件路径
-
+from tqdm import tqdm
 
 class Rcord:
     def __init__(self):
@@ -33,7 +33,7 @@ class Rcord:
     '''
 
     def rcord(self, dirpath_):  # 表示需要著录处理的文件夹
-        parent_path = os.path.abspath(os.path.join(dirpath_, "..", "A-2020-JX14条目"))  # 著录Excel的存放路径
+        # parent_path = os.path.abspath(os.path.join(dirpath_, "..", "A-2020-JX14条目"))  # 著录Excel的存放路径
         source_path = r"学生信息.xlsx"
         sourcexls = xlrd.open_workbook(source_path)  # 打开学生信息
         sourcesheet = sourcexls.sheet_by_index(0)  # 第一个工作表
@@ -65,9 +65,12 @@ class Rcord:
 
         i = 1
         for root, dirs, files in os.walk(dirpath_):
+            if len(files) != 0:
+
+                pbar = tqdm(desc='卷著录', total=len(files), ascii=' =')
             for file in files:
                 xh = file.split('.')[0]  # 分离学号
-
+                pbar.update(1)
                 if xh in 学号:  # 查找
                     xm = 姓名[学号.index(xh)]
                     sfzh = 身份证号[学号.index(xh)]
@@ -96,7 +99,7 @@ class Rcord:
                         xwzh = ''
                 # print(xh,xm,xfzh,zsh,xwzh,xy,zy)
 
-                dir_str = root.split(r'/')[-1]  # 如果不需要加Y就不要以下的dir_str了
+                dir_str = root.split('\\')[-1]  # 如果不需要加Y就不要以下的dir_str了
                 dir_str = dir_str.split(r'-')
                 dir_str.insert(3, 'Y')
                 dir_str = '-'.join(dir_str)
@@ -119,7 +122,7 @@ class Rcord:
 
                 i = i + 1
         f.save('2020年普通高校学籍表卷内.xls')  # 保存
-
+        # print("著录完成")
 
 if __name__ == '__main__':
     root = tk.Tk()

@@ -2,7 +2,6 @@
    # 将pdf文件拼接上其问价夹名
 '''
 import os
-import xlwt
 import tkinter as tk
 from tkinter.filedialog import askdirectory
 
@@ -13,11 +12,13 @@ class BatchRename:
         pass
     def rename(self, dirpath_):  # 表示需要命名处理的文件夹
         for root,dirs,files in os.walk(dirpath_):
+            i=0
             for file in files:
-                srcname = os.path.join(root,file)
+                i=i+1
+                srcname = os.path.abspath(os.path.join(root,file))
                 # print(srcname)
-                newname = root+'/'+root.split("/")[-1]+'-'+file
-                print(file)
+                newname = root+'/'+f"{str(i).zfill(4)}.pdf"
+                print(file+"->"+newname)
                 os.rename(srcname,newname)
 
 # 新测试
