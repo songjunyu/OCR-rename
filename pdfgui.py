@@ -20,9 +20,10 @@ def sm():
     L3['text']="点击按钮进行著录->"
     B1['text']="附件pdf著录"
 def record():
+    global jnpath
     print(path2.get(), "开始著录") # path2为合并后附件文件夹
     demo = Rcord(ry.get(),path1.get())          # 著录实现
-    demo.rcord(path2.get())
+    jnpath=demo.rcord(path2.get())
     print(path2.get(), "完成著录")
     L1['text']="毕业照片"
     L1['bg']="yellow"
@@ -32,7 +33,7 @@ def record():
 
 def addimg():
     print("添加照片")
-    pdf2pic(path2.get(),path1.get())
+    pdf2pic(path2.get(),path1.get(),jnpath)
     print("添加照片完成")
     L3['text'] = "点击按钮进行改名->"
     B1['command'] = rename
@@ -51,6 +52,7 @@ def rename():
 
 #     e.delete(0, END)  # 获取完信息，清楚掉输入框的
 
+jnpath = '' # 卷内Excel路径
 
 root = Tk()
 root.title('学生档案电子化')
@@ -64,14 +66,14 @@ Label(root, image=photo).grid(row=0, column=0, rowspan=2, columnspan=3)
 # 第3行，获取原路径
 L1=Label(root, text="原始路径:")
 L1.grid(row=3, column=0)
-e = Entry(root, textvariable=path1)  # 输入框，内容和path1绑定
-e.grid(row=3, column=1, ipadx=60)
+e1 = Entry(root, textvariable=path1)  # 输入框，内容和path1绑定
+e1.grid(row=3, column=1, ipadx=60)
 Button(root, text="路径选择", command=lambda: selectPath(path1)).grid(row=3, column=2)
 # 第四行，获取目标路径
 L2=Label(root, text="目标路径:")
 L2.grid(row=4, column=0)
-e = Entry(root, textvariable=path2)  # 输入框，内容和path2绑定
-e.grid(row=4, column=1, ipadx=60)
+e2 = Entry(root, textvariable=path2)  # 输入框，内容和path2绑定
+e2.grid(row=4, column=1, ipadx=60)
 Button(root, text="路径选择", command=lambda: selectPath(path2)).grid(row=4, column=2)
 
 # 第5行，开始按钮

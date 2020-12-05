@@ -8,8 +8,8 @@ from tkinter.filedialog import askdirectory,askopenfilename
 
 
 
-def pdf2pic(dirpath_, pic_path_):
-    source_path = r"2020年普通高校学籍表卷内.xls"
+def pdf2pic(dirpath_, pic_path_,xpath):
+    source_path = xpath
     sourcexls = xlrd.open_workbook(source_path)  # 打开学生信息
     sourcesheet = sourcexls.sheet_by_index(0)  # 第一个工作表
     学号 = sourcesheet.col_values(11, 1, None)  # 获取列值，用作查找
@@ -43,4 +43,4 @@ if __name__ == '__main__':
     root.withdraw()
     dirpath = askdirectory(title="pdf文件夹")
     pic_path= askdirectory(title=u'毕业照片')
-    pdf2pic(dirpath,pic_path)
+    pdf2pic(dirpath,pic_path,"D:/条目","2020")

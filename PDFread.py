@@ -97,11 +97,13 @@ class PDF:
             个人学籍卡 = dict[student_number]
             pdf_writer.addPage(个人学籍卡)
             # 写入成绩表
-            for item in 成绩表字典[student_number]:
-                pdf_writer.addPage(item)
+            if f'{student_number}' in 成绩表字典.keys():
+                for item in 成绩表字典[student_number]:
+                    pdf_writer.addPage(item)
             # 写入学位证
-            个人学位证 = 学位证字典[student_number]
-            pdf_writer.addPage(个人学位证)
+            if f'{student_number}' in 学位证字典.keys():
+                个人学位证 = 学位证字典[student_number]
+                pdf_writer.addPage(个人学位证)
 
             outputFilename = parent_path + '\\' + student_number + ".pdf"
             with open(outputFilename, "wb") as out:

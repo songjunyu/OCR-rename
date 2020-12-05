@@ -172,6 +172,7 @@ class Rcord:
         f.save(f'{self.tmpath}/{self.y}年普通高校学籍表卷内.xls')  # 保存
         g.save(f'{self.tmpath}/{self.y}年普通高校学籍表案卷.xls')  # 保存
         # print("著录完成")
+        return f"{self.tmpath}/{self.y}年普通高校学籍表卷内.xls"
 
 if __name__ == '__main__':
     root = tk.Tk()
