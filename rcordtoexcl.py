@@ -11,15 +11,30 @@ import xlrd  # 读Excel
 import tkinter as tk
 from tkinter.filedialog import askdirectory  # 获取文件路径
 from tqdm import tqdm
-
+import time
 class Rcord:
-    def __init__(self):
-        pass
-
+    def __init__(self,ry,tmpath):
+        self.y=''
+        self.ry=ry
+        self.dir_str=''
+        self.srrq=time.strftime('%Y.%m.%d')
+        self.ajh=''
+        self.xy=''
+        self.zy=''
+        self.tmpath=tmpath
+        if not os.path.exists(self.tmpath):
+            os.makedirs(self.tmpath)
     '''
         正则函数，输入参数为正则规则，pdf源文件路径
     '''
-
+    def setStyle(self,color):
+        style = xlwt.XFStyle()  # 初始化样式
+        font = xlwt.Font()  # 为样式创建字体
+        # 字体类型：比如宋体、仿宋也可以是汉仪瘦金书繁
+        font.colour_index = color
+        # 字体大小
+        style.font = font
+        return style
     def xre(self, xreg, pdfpath):  # 正则，参数为匹配规则
         with pdfplumber.open(pdfpath) as pdf:
             page = pdf.pages[0]  # 获取首页
@@ -46,87 +61,121 @@ class Rcord:
         专业 = sourcesheet.col_values(13, 1, None)
 
         f = xlwt.Workbook(encoding='utf-8', style_compression=0)  # 新建一个Excel
+        g = xlwt.Workbook(encoding='utf-8', style_compression=0)  # 新建一个案卷Excel
         sheet = f.add_sheet('sheet1')  # 新建一个sheet，开始著录行
-        sheet.write(0, 0, "档号")
-        sheet.write(0, 1, "分类号")
-        sheet.write(0, 2, "年度")
-        sheet.write(0, 3, "件号")
-        sheet.write(0, 4, "保管期限")
-        sheet.write(0, 5, "题名")
-        sheet.write(0, 6, "总页数")
-        sheet.write(0, 7, "密级")
-        sheet.write(0, 8, "输入员")
-        sheet.write(0, 9, "输入时间")
-        sheet.write(0, 10, "归档单位")
-        sheet.write(0, 11, "学号")
-        sheet.write(0, 12, "学位证号")
-        sheet.write(0, 13, "证书号")
-        sheet.write(0, 14, "身份证号")
+        tabel = g.add_sheet('sheet1')  # 新建一个tabel，开始著录行
+        # 卷内首行
+        sheet.write(0, 0, "档号", self.setStyle(2))
+        sheet.write(0, 1, "分类号", self.setStyle(2))
+        sheet.write(0, 2, "年度", self.setStyle(2))
+        sheet.write(0, 3, "件号", self.setStyle(2))
+        sheet.write(0, 4, "保管期限", self.setStyle(2))
+        sheet.write(0, 5, "题名", self.setStyle(2))
+        sheet.write(0, 6, "总页数", self.setStyle(2))
+        sheet.write(0, 7, "密级", self.setStyle(2))
+        sheet.write(0, 8, "输入员", self.setStyle(2))
+        sheet.write(0, 9, "输入时间", self.setStyle(2))
+        sheet.write(0, 10, "归档单位", self.setStyle(2))
+        sheet.write(0, 11, "学号", self.setStyle(2))
+        sheet.write(0, 12, "学位证号", self.setStyle(2))
+        sheet.write(0, 13, "证书号", self.setStyle(2))
+        sheet.write(0, 14, "身份证号", self.setStyle(2))
+        # 案卷首行
+        tabel.write(0, 0, "全宗号", self.setStyle(2))
+        tabel.write(0, 1, "档号", self.setStyle(2))
+        tabel.write(0, 2, "分类号", self.setStyle(2))
+        tabel.write(0, 3, "年度", self.setStyle(2))
+        tabel.write(0, 4, "案卷号", self.setStyle(2))
+        tabel.write(0, 5, "题名", self.setStyle(2))
+        tabel.write(0, 6, "总件数", self.setStyle(2))
+        tabel.write(0, 7, "保管期限", self.setStyle(2))
+        tabel.write(0, 8, "密级", self.setStyle(2))
+        tabel.write(0, 9, "立卷责任者", self.setStyle(2))
+        tabel.write(0, 10, "立卷时间", self.setStyle(2))
+        tabel.write(0, 11, "输入员", self.setStyle(2))
+        tabel.write(0, 12, "输入时间", self.setStyle(2))
+        tabel.write(0, 13, "归档单位", self.setStyle(2))
 
         i = 1
+        j = 0
         for root, dirs, files in os.walk(dirpath_):
             if len(files) != 0:
-
+                j+=1
+                tabel.write(j,6,len(files))
                 pbar = tqdm(desc='卷著录', total=len(files), ascii=' =')
-            for file in files:
-                xh = file.split('.')[0]  # 分离学号
-                pbar.update(1)
-                if xh in 学号:  # 查找
-                    xm = 姓名[学号.index(xh)]
-                    sfzh = 身份证号[学号.index(xh)]
-                    zsh = 证书号[学号.index(xh)]
-                    xwzh = 学位证号[学号.index(xh)]
-                    xy = 学院[学号.index(xh)]
-                    zy = 专业[学号.index(xh)]
-                else:  # 查找不到，采用正则表达式从pdf中获取
-                    match = self.xre(r'\b姓名 .*? \b', os.path.join(root, file))
-                    xm = match.group(0)[3:]
-                    match = self.xre(r'身份证号 \d+\.*?\d', os.path.join(root, file))
-                    sfzh = match.group(0)[5:]
-                    match = self.xre(r'\b院系：.*? \b', os.path.join(root, file))
-                    xy = match.group(0)[3:]
-                    match = self.xre(r'\b专业：.*? \b', os.path.join(root, file))
-                    zy = match.group(0)[3:]
-                    match = self.xre(r'证书号 \d+\.*?\d', os.path.join(root, file))
-                    if match:
-                        zsh = match.group(0)[4:]
-                    else:
-                        zsh = ''
-                    match = self.xre(r'学位证书号 \d+\.*?\d', os.path.join(root, file))
-                    if match:
-                        xwzh = match.group(0)[6:]
-                    else:
-                        xwzh = ''
-                # print(xh,xm,xfzh,zsh,xwzh,xy,zy)
-
-                dir_str = root.split('\\')[-1]  # 如果不需要加Y就不要以下的dir_str了
-                dir_str = dir_str.split(r'-')
-                dir_str.insert(3, 'Y')
-                dir_str = '-'.join(dir_str)
-                # print(dir_str)
-                sheet.write(i, 0, dir_str)
-                sheet.write(i, 1, "JX14")
-                sheet.write(i, 2, "2020")
-                sheet.write(i, 3, f"{str(i).zfill(4)}")
-                sheet.write(i, 4, "Y")
-                sheet.write(i, 5, f"2020年河南大学【{xy}（{zy}）】学生学籍表：{xm}")
-                sheet.write(i, 6, "4")
-                sheet.write(i, 7, "内部")
-                sheet.write(i, 8, "宋俊玉")
-                sheet.write(i, 9, "2020.12.3")
-                sheet.write(i, 10, "档案馆")
-                sheet.write(i, 11, xh)
-                sheet.write(i, 12, xwzh)  # 开始著录列
-                sheet.write(i, 13, zsh)
-                sheet.write(i, 14, sfzh)
-
-                i = i + 1
-        f.save('2020年普通高校学籍表卷内.xls')  # 保存
+                for file in files:
+                    xh = file.split('.')[0]  # 分离学号
+                    pbar.update(1)
+                    if xh in 学号:  # 查找
+                        xm = 姓名[学号.index(xh)]
+                        sfzh = 身份证号[学号.index(xh)]
+                        zsh = 证书号[学号.index(xh)]
+                        xwzh = 学位证号[学号.index(xh)]
+                        xy = 学院[学号.index(xh)]
+                        zy = 专业[学号.index(xh)]
+                    else:  # 查找不到，采用正则表达式从pdf中获取
+                        match = self.xre(r'\b姓名 .*? \b', os.path.join(root, file))
+                        xm = match.group(0)[3:]
+                        match = self.xre(r'身份证号 \d+\.*?\d', os.path.join(root, file))
+                        sfzh = match.group(0)[5:]
+                        match = self.xre(r'\b院系：.*? \b', os.path.join(root, file))
+                        xy = match.group(0)[3:]
+                        match = self.xre(r'\b专业：.*? \b', os.path.join(root, file))
+                        zy = match.group(0)[3:]
+                        match = self.xre(r'证书号 \d+\.*?\d', os.path.join(root, file))
+                        if match:
+                            zsh = match.group(0)[4:]
+                        else:
+                            zsh = ''
+                        match = self.xre(r'学位证书号 \d+\.*?\d', os.path.join(root, file))
+                        if match:
+                            xwzh = match.group(0)[6:]
+                        else:
+                            xwzh = ''
+                    # print(xh,xm,xfzh,zsh,xwzh,xy,zy)
+                    self.xy=xy
+                    self.zy=zy
+                    dir_str = root.split('\\')[-1]  # 如果不需要加Y就不要以下的dir_str了
+                    dir_str = dir_str.split(r'-')
+                    self.y=dir_str[1]
+                    self.ajh=dir_str[-1]
+                    dir_str.insert(3, 'Y')
+                    self.dir_str = '-'.join(dir_str)
+                    # print(dir_str)
+                    sheet.write(i, 0, self.dir_str)
+                    sheet.write(i, 1, "JX14")
+                    sheet.write(i, 2, f"{self.y}")
+                    sheet.write(i, 3, f"{str(i).zfill(4)}")
+                    sheet.write(i, 4, "Y")
+                    sheet.write(i, 5, f"{self.y}年河南大学【{xy}（{zy}）】学生学籍表：{xm}")
+                    sheet.write(i, 6, "4")
+                    sheet.write(i, 7, "内部")
+                    sheet.write(i, 8, f"{self.ry}")
+                    sheet.write(i, 9, f"{self.srrq}")
+                    sheet.write(i, 10, "档案馆")
+                    sheet.write(i, 11, xh)
+                    sheet.write(i, 12, xwzh)  # 开始著录列
+                    sheet.write(i, 13, zsh)
+                    sheet.write(i, 14, sfzh)
+                    i = i + 1
+                tabel.write(j,0,"A")
+                tabel.write(j,1,f"{self.dir_str}")
+                tabel.write(j,2,f"JX14")
+                tabel.write(j,3,f"{self.y}")
+                tabel.write(j,4,f"{self.ajh}")
+                tabel.write(j,5,f"{self.y}年河南大学【{self.xy}（{self.zy}）】学生学籍表")
+                tabel.write(j,7,f"Y")
+                tabel.write(j,8,f"内部")
+                tabel.write(j,11,f"{self.ry}")
+                tabel.write(j,12,f"{self.srrq}")
+                tabel.write(j, 13, f"档案馆")
+        f.save(f'{self.tmpath}/{self.y}年普通高校学籍表卷内.xls')  # 保存
+        g.save(f'{self.tmpath}/{self.y}年普通高校学籍表案卷.xls')  # 保存
         # print("著录完成")
 
 if __name__ == '__main__':
     root = tk.Tk()
     root.withdraw()
     dirpath = askdirectory()
-    demo = Rcord()
+    demo = Rcord("李开放","D:/条目")
     demo.rcord(dirpath)

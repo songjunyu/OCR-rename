@@ -15,14 +15,18 @@ def sm():
     demo.rem()
     print("完成合并")
     B1['command']=record
+    L1['text'] = "案卷保存"
+    L1['bg'] = "green"
+    L3['text']="点击按钮进行著录->"
     B1['text']="附件pdf著录"
 def record():
     print(path2.get(), "开始著录") # path2为合并后附件文件夹
-    demo = Rcord()          # 著录实现
+    demo = Rcord(ry.get(),path1.get())          # 著录实现
     demo.rcord(path2.get())
     print(path2.get(), "完成著录")
     L1['text']="毕业照片"
     L1['bg']="yellow"
+    L3['text']="选择照片路径高亮->"
     B1['command'] = addimg
     B1['text'] = "添加照片"
 
@@ -30,6 +34,7 @@ def addimg():
     print("添加照片")
     pdf2pic(path2.get(),path1.get())
     print("添加照片完成")
+    L3['text'] = "点击按钮进行改名->"
     B1['command'] = rename
     B1['text'] = "改名"
 def rename():
@@ -48,10 +53,11 @@ def rename():
 
 
 root = Tk()
-root.title('pdf合并')
+root.title('学生档案电子化')
 root.geometry('500x450')
 path1 = StringVar()
 path2 = StringVar()
+ry =StringVar()
 photo = PhotoImage(file='logo.png')
 # ,ipadx=500,ipady=180 设置logo
 Label(root, image=photo).grid(row=0, column=0, rowspan=2, columnspan=3)
@@ -69,10 +75,15 @@ e.grid(row=4, column=1, ipadx=60)
 Button(root, text="路径选择", command=lambda: selectPath(path2)).grid(row=4, column=2)
 
 # 第5行，开始按钮
-B1=Button(root, text='pdf合并', command=sm,bg='red')
-B1.grid(row=8, column=1,ipadx=12,ipady=12)
+L3 =Label(root, text="选择路径然后点击->")
+L3.grid(row=5, column=0)
+B1=Button(root, text='pdf合并', command=sm,overrelief='sunken',width = 10,height = 2, bd=10)
+B1.grid(row=5, column=1)
 # Button(root, text='著录', command=record).grid(row=5, column=1)
 # Button(root, text='开始pdf合并', command=lambda:(demo.rem())).grid(row=5, column=1)
+Label(root, text="清空路径跳过").grid(row=5, column=2)
+Label(root, text="操作人员").grid(row=6, column=0)
+Entry(root, textvariable=ry).grid(row=6, column=1, ipadx=15)
 
 # weight 设置宽度
 Button(root, text='退出程序', command=root.quit).grid(row=8, column=2)
