@@ -4,21 +4,27 @@ from pdf import BatchSM
 from rcordtoexcl import Rcord
 from pdfaddimg import pdf2pic
 from pdfrename import BatchRename
+
 def selectPath(p_):
     path_ = askdirectory()
     p_.set(path_)
-
 
 def sm():
     print("开始合并")
     demo = BatchSM(path1.get(), path2.get())  # 构建合并文件类，参数为源文件夹和目标文件夹
     demo.rem()
     print("完成合并")
-    B1['command']=record
+    B1['command'] = record
     L1['text'] = "案卷保存"
     L1['bg'] = "green"
-    L3['text']="点击按钮进行著录->"
-    B1['text']="附件pdf著录"
+    L3['text'] = "点击按钮进行著录->"
+    B1['text'] = "附件pdf著录"
+    # t = threading.Thread(target=demo.rem)
+    # # 守护线程
+    # t.setDaemon(True)
+    # t.start()
+
+
 def record():
     global jnpath
     print(path2.get(), "开始著录") # path2为合并后附件文件夹

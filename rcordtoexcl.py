@@ -32,6 +32,12 @@ class Rcord:
         font = xlwt.Font()  # 为样式创建字体
         # 字体类型：比如宋体、仿宋也可以是汉仪瘦金书繁
         font.colour_index = color
+        alignment = xlwt.Alignment()
+        # 0x01(左端对齐)、0x02(水平方向上居中对齐)、0x03(右端对齐)
+        alignment.horz = 0x02
+        # 0x00(上端对齐)、 0x01(垂直方向上居中对齐)、0x02(底端对齐)
+        alignment.vert = 0x01
+        style.alignment = alignment
         # 字体大小
         style.font = font
         return style

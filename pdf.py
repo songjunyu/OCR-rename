@@ -50,8 +50,9 @@ class BatchSM:
             i = i + 1
             if not os.path.exists(parent_path):
                 os.makedirs(parent_path)
-            pdfread = PDF()
-            pdfread.PDFread(self.学籍卡, self.成绩表, self.学位证, parent_path)
+            pdfread = PDF(self.学籍卡, self.成绩表, self.学位证, parent_path)
+            pdfread.PDFread()
+            # t.kill()
 
 
 if __name__ == '__main__':
