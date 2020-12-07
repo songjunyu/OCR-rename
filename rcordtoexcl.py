@@ -107,6 +107,7 @@ class Rcord:
         for root, dirs, files in os.walk(dirpath_):
             if len(files) != 0:
                 j+=1
+                counter = 1
                 tabel.write(j,6,len(files))
                 pbar = tqdm(desc='卷著录', total=len(files), ascii=' =')
                 for file in files:
@@ -142,16 +143,18 @@ class Rcord:
                     self.xy=xy
                     self.zy=zy
                     dir_str = root.split('\\')[-1]  # 如果不需要加Y就不要以下的dir_str了
+                    self.dir_str = dir_str
                     dir_str = dir_str.split(r'-')
                     self.y=dir_str[1]
                     self.ajh=dir_str[-1]
-                    dir_str.insert(3, 'Y')
-                    self.dir_str = '-'.join(dir_str)
+                    # dir_str.insert(3, 'Y')
+                    # self.dir_str = '-'.join(dir_str)
+
                     # print(dir_str)
                     sheet.write(i, 0, self.dir_str)
                     sheet.write(i, 1, "JX14")
                     sheet.write(i, 2, f"{self.y}")
-                    sheet.write(i, 3, f"{str(i).zfill(4)}")
+                    sheet.write(i, 3, f"{str(counter).zfill(4)}")
                     sheet.write(i, 4, "Y")
                     sheet.write(i, 5, f"{self.y}年河南大学【{xy}（{zy}）】学生学籍表：{xm}")
                     sheet.write(i, 6, "4")
@@ -164,6 +167,7 @@ class Rcord:
                     sheet.write(i, 13, zsh)
                     sheet.write(i, 14, sfzh)
                     i = i + 1
+                    counter+=1
                 tabel.write(j,0,"A")
                 tabel.write(j,1,f"{self.dir_str}")
                 tabel.write(j,2,f"JX14")

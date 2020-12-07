@@ -17,7 +17,8 @@ class BatchRename:
                 i=i+1
                 srcname = os.path.abspath(os.path.join(root,file))
                 # print(srcname)
-                newname = root+'/'+f"{str(i).zfill(4)}.pdf"
+                dir_=root.split('\\')[-1]
+                newname = root+'/'+f"{dir_}-{str(i).zfill(4)}.pdf"
                 print(file+"->"+newname)
                 os.rename(srcname,newname)
 
