@@ -123,7 +123,7 @@ class Rcord:
                     else:  # 查找不到，采用正则表达式从pdf中获取
                         match = self.xre(r'\b姓名 .*? \b', os.path.join(root, file))
                         xm = match.group(0)[3:]
-                        match = self.xre(r'身份证号 \d+\.*?\d', os.path.join(root, file))
+                        match = self.xre(r'身份证号 \d+\.*?\w', os.path.join(root, file)) # \W表示字母或者数字
                         sfzh = match.group(0)[5:]
                         match = self.xre(r'\b院系：.*? \b', os.path.join(root, file))
                         xy = match.group(0)[3:]

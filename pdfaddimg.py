@@ -33,7 +33,7 @@ def pdf2pic(dirpath_, pic_path_,xpath):
             pdfWriter.addPage(pdfReader1.getPage(0))    # 添加照片pdf文件
             with open(file, "wb") as out:               #覆盖原始pdf文件
                 pdfWriter.write(out)
-
+            print(rootd,"正在添加照片")
 
 
 
