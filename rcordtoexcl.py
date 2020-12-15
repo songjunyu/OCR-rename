@@ -17,7 +17,7 @@ class Rcord:
         self.y=''
         self.ry=ry
         self.dir_str=''
-        self.srrq=time.strftime('%Y.%m.%d')
+        self.srrq=time.strftime('%Y%m%d')
         self.ajh=''
         self.xy=''
         self.zy=''
@@ -122,13 +122,25 @@ class Rcord:
                         zy = 专业[学号.index(xh)]
                     else:  # 查找不到，采用正则表达式从pdf中获取
                         match = self.xre(r'\b姓名 .*? \b', os.path.join(root, file))
-                        xm = match.group(0)[3:]
+                        if match:
+                            xm = match.group(0)[3:]
+                        else:
+                            xm=''
                         match = self.xre(r'身份证号 \d+\.*?\w', os.path.join(root, file)) # \W表示字母或者数字
-                        sfzh = match.group(0)[5:]
+                        if match:
+                            sfzh = match.group(0)[5:]
+                        else:
+                            sfzh=''
                         match = self.xre(r'\b院系：.*? \b', os.path.join(root, file))
-                        xy = match.group(0)[3:]
+                        if match:
+                            xy = match.group(0)[3:]
+                        else:
+                            xy=''
                         match = self.xre(r'\b专业：.*? \b', os.path.join(root, file))
-                        zy = match.group(0)[3:]
+                        if match:
+                            zy = match.group(0)[3:]
+                        else:
+                            zy=''
                         match = self.xre(r'证书号 \d+\.*?\d', os.path.join(root, file))
                         if match:
                             zsh = match.group(0)[4:]
