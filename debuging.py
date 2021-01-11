@@ -1,4 +1,13 @@
-#查找打不开的pdf文件，以及缺失的文件
+# -*- encoding: utf-8 -*-
+"""
+@File    : test.py
+@Time    : 2021/1/11 19:12
+@Author  : SJY
+@Email   : 1434508535@qq.com
+@Software: PyCharm
+@function: 查找打不开的PDF文件，以及缺失的PDF文件
+
+"""
 
 import os
 import tkinter as tk

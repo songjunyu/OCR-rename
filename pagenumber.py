@@ -1,5 +1,14 @@
-#获取每个学生pdf文件页数，写入一个空白Excel中，同时查看小于4页的、
-# 有可能是写的年份有错误，最后合并到卷内Excel中
+# -*- encoding: utf-8 -*-
+"""
+@File    : test.py
+@Time    : 2021/1/11 19:12
+@Author  : SJY
+@Email   : 1434508535@qq.com
+@Software: PyCharm
+@function: 获取每个学生pdf文件页数，写入一个空白Excel中，同时查看小于4页的、
+            有可能是写的年份有错误，最后合并到卷内Excel中
+"""
+
 
 import os
 import tkinter as tk

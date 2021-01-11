@@ -1,5 +1,13 @@
-#可打开多个文件夹，全图识别，正确率高，无法删除非成绩单
+# -*- encoding: utf-8 -*-
+"""
+@File    : test.py
+@Time    : 2021/1/11 19:12
+@Author  : SJY
+@Email   : 1434508535@qq.com
+@Software: PyCharm
+@function: 可打开多个文件夹，全图识别，正确率高，无法删除非成绩单，对图片文件进行重命名。
 
+"""
 
 import re
 import os

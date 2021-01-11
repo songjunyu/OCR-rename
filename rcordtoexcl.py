@@ -1,8 +1,14 @@
-'''
-   读取案卷内pdf文件名，文件名为学生学号；
-   在学生信息表中查找对用信息，著录卷内Excel表；
-   信息表中没有信息的通过pdf文件直接获取
-'''
+# -*- encoding: utf-8 -*-
+"""
+@File    : test.py
+@Time    : 2021/1/11 19:12
+@Author  : SJY
+@Email   : 1434508535@qq.com
+@Software: PyCharm
+@function: 读取案卷内pdf文件名，文件名为学生学号；
+           在学生信息表中查找对用信息，著录卷内Excel表；
+           信息表中没有信息的通过pdf文件直接获取
+"""
 import pdfplumber  # 读取pdf文件，转换为文本
 import re  # 正则化
 import os

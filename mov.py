@@ -1,3 +1,13 @@
+# -*- encoding: utf-8 -*-
+"""
+@File    : test.py
+@Time    : 2021/1/11 19:12
+@Author  : SJY
+@Email   : 1434508535@qq.com
+@Software: PyCharm
+@function: 移动文件到上层目录，将个人文件夹图片复制到上层班级目录，参数为整个大文件夹
+
+"""
 #移动文件到上层目录，将个人文件夹图片复制到班级
 import re
 import os,shutil

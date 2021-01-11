@@ -1,3 +1,12 @@
+# -*- encoding: utf-8 -*-
+"""
+@File    : test.py
+@Time    : 2021/1/11 19:12
+@Author  : SJY
+@Email   : 1434508535@qq.com
+@Software: PyCharm
+@function: 通过索引查找每个同学的照片，插入到pdf中
+"""
 import os
 import tkinter as tk
 import img2pdf

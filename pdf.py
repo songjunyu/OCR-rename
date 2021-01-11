@@ -1,5 +1,14 @@
-# 调用PDFread接口进行pdf合并
-# 源文件命名需分别包含学籍卡，成绩表，学位证字符串
+# -*- encoding: utf-8 -*-
+"""
+@File    : test.py
+@Time    : 2021/1/11 19:12
+@Author  : SJY
+@Email   : 1434508535@qq.com
+@Software: PyCharm
+@function:调用PDFread接口进行pdf合并
+          源文件命名需分别包含学籍卡，成绩表，学位证字符串
+"""
+
 import tkinter as tk
 from tkinter.filedialog import askdirectory
 from PDFread import *

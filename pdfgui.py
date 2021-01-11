@@ -1,3 +1,12 @@
+# -*- encoding: utf-8 -*-
+"""
+@File    : test.py
+@Time    : 2021/1/11 19:12
+@Author  : SJY
+@Email   : 1434508535@qq.com
+@Software: PyCharm
+@function: PDF合并的的界面程序，集成整个项目的多个步骤，合并，著录，添加照片，改名
+"""
 from tkinter import *
 from tkinter.filedialog import askdirectory
 from pdf import BatchSM

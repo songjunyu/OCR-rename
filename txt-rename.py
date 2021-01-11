@@ -1,4 +1,13 @@
-# 根据jpg同名TXT文件，检索出学号，将对应的jpg文件重命名
+# -*- encoding: utf-8 -*-
+"""
+@File    : test.py
+@Time    : 2021/1/11 19:12
+@Author  : SJY
+@Email   : 1434508535@qq.com
+@Software: PyCharm
+@function: 根据图片对应的txt文档，获取图片学号信息，进行重命名，参数为最外层文件夹
+
+"""
 import re
 import os
 # import pytesseract

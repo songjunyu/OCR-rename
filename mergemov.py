@@ -1,5 +1,13 @@
-#合并学籍卡，成绩表，学位证明到一个文件夹
+# -*- encoding: utf-8 -*-
+"""
+@File    : test.py
+@Time    : 2021/1/11 19:12
+@Author  : SJY
+@Email   : 1434508535@qq.com
+@Software: PyCharm
+@function: 将相应的学籍卡，成绩表，学位证明合并到一个文件夹
 
+"""
 import os,shutil
 
 import tkinter as tk

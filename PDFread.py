@@ -1,4 +1,12 @@
-"""给三出一"""
+# -*- encoding: utf-8 -*-
+"""
+@File    : test.py
+@Time    : 2021/1/11 19:12
+@Author  : SJY
+@Email   : 1434508535@qq.com
+@Software: PyCharm
+@function: 将每个班级的三个PDF文件拆分为单个人的文件，然后通过学号进行合并
+"""
 import pdfplumber
 from PyPDF2 import PdfFileReader, PdfFileWriter
 import re
